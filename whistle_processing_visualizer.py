@@ -25,7 +25,9 @@ class CircleBuf():
 
 class BufferAnimation():
     """
-    Don't use matplotlib animation. Use this instead, much easier
+    Animate any number of plots on a figure.
+    These plots plot CircleBufs, whose contents may be updated at any time.
+    Call draw() many times a second to animate.
     """
     def __init__(self, *buffers):
         self.buffers = buffers
@@ -164,8 +166,8 @@ def callback(data_in, frame_count, time, status):
     # add lowpass over time. Lowpass doesn't seem to be necessary, may exclude
     lowpass_buffer.add_data(lowpass(tone_buffer, LOWPASS_WINDOW_SIZE))
 
+    # show silly animation if close enough to target
     if(compare_target(tone_buffer.y, buffer_animation.target_y)):
-        print('\n\nGOTCHA\n\n')
         Thread(target=show_success).start()
 
     return (None, pyaudio.paContinue)
