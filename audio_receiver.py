@@ -1,3 +1,4 @@
+import numpy as np
 import pyaudio
 from threading import Thread
 from time import sleep
@@ -24,8 +25,9 @@ class AudioReceiver():
         self.open = False
         self.stream = None
 
-    def callback(self, data_in, frame_count, time, status):
-        self.output_func(data_in)
+    def _callback(self, data_in, frame_count, time, status):
+        data = np.frombuffer(data_in, dtype=np.int16)
+        self.output_func(data)
         return (None, pyaudio.paContinue)
 
     def start(self): 
@@ -37,7 +39,7 @@ class AudioReceiver():
                 rate=self.sample_freq,
                 input=True,
                 frames_per_buffer=self.chunk_size,
-                stream_callback=self.callback
+                stream_callback=self._callback
             )
 
             # leave thread alive to keep audio listening
