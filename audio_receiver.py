@@ -5,7 +5,7 @@ from time import sleep
 
 
 class Defaults():
-    AUDIO_CHUNK_SIZE = 500
+    AUDIO_CHUNK_SIZE = 200
     SAMPLE_FREQ = 16000
     NUM_CHANNELS = 1
     OUTPUT_FUNC = lambda *_: None

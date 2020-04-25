@@ -2,7 +2,7 @@ import numpy as np
 
 
 class Defaults():
-    AUDIO_CHUNK_SIZE = 500
+    AUDIO_CHUNK_SIZE = 200
     SAMPLE_FREQ = 16000
     LOWER_BOUND = 400
     UPPER_BOUND = 4000
