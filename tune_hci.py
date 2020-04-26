@@ -3,13 +3,16 @@ from frequency_finder import FrequencyFinder
 from note_detector import NoteDetector
 from time import sleep
 
-def callback(start, stop, freq):
-    print(f'start: {start} stop: {stop} duration: {stop - start} f: {freq}')
+def callback(duration, freq):
+    print(f'duration: {duration} f: {freq}')
+
+def ffcallback(data):
+    print(data)
 
 note_detector = NoteDetector(output=callback)
 frequency_finder = FrequencyFinder(output=note_detector.input_frequency)
 audio_receiver = AudioReceiver(output=frequency_finder.input_audio)
 audio_receiver.start()
 
-sleep(30)
+sleep(3000)
 audio_receiver.stop()
