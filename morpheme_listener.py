@@ -4,6 +4,7 @@ from time import time
 
 class Defaults():
     SEMITONE_WIDTH_FACTOR = 2**(1/12) - 1
+    OUTPUT_FUNC = lambda *_: None
 
 
 class MorphemeListener():
@@ -35,7 +36,7 @@ class MorphemeListener():
     """
     def __init__(self, morpheme_structure, output=None):
         self.morpheme_structure = morpheme_structure
-        self.output = output
+        self.output = output or Defaults.OUTPUT_FUNC
         self.phoneme_index = 0
         self.start_time = None
         self.prev_time = None
@@ -77,7 +78,7 @@ class MorphemeListener():
             max_diff = target['frequency']['diff_from_previous']['max_semitones']
             min_diff = target['frequency']['diff_from_previous']['min_semitones']
             semitone_size = np.mean([frequency, self.prev_freq]) * Defaults.SEMITONE_WIDTH_FACTOR
-            semitone_diff = np.abs(frequency - self.prev_freq) / semitone_size
+            semitone_diff = (frequency - self.prev_freq) / semitone_size
             print(f'semitone diff: {semitone_diff}')
             if not max_diff >= semitone_diff >= min_diff:
                 return False
@@ -104,3 +105,4 @@ class MorphemeListener():
             self.start_time = time()
             self.prev_time = time()
             self.prev_freq = frequency
+            self.phoneme_index = 0

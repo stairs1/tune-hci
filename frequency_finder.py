@@ -7,7 +7,7 @@ class Defaults():
     LOWER_BOUND = 400
     UPPER_BOUND = 4000
     OUTPUT_FUNC = lambda *_: None
-    SNR_THRESHOLD = 40
+    SNR_THRESHOLD = 80
 
 
 class FrequencyFinder():
